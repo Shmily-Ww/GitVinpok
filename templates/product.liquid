@@ -1,0 +1,45 @@
+
+<!-- spurit_po-added -->
+{% include 'spurit_po-product-snippet' %}
+<!-- /spurit_po-added -->
+{% section 'template-product' %}
+
+{% if product.description contains "<!-- split -->"  %}
+
+        {{ product.description | split: '<!-- split -->' | last }}
+{% endif %}
+
+<div id="awarp-product-related" data-id="{{ product.id }}" data-collection_id="{{ collection.id }}" data-collection_handle="{{ collection.handle }}"></div>
+
+{% section 'modal-crat-guid' %}
+<div class="module-body product-specification-body">
+<div id="kudobuzz_product_reviews_widget" data-product-id="{{ product.id }}"data-uid="54b4x2w22343o2c4t2f4o2233364434334z2q244z2"data-domain="{{ shop.permanent_domain | escape }}"></div>
+{% if product.handle == settings.featured-product-main %}
+  {% assign used_product_focus = false %}
+  {% assign used_technical_specifications = false %}
+  {% assign module_1 = settings.product_module_1 %}
+  {% assign module_2 = settings.product_module_2 %}
+
+  {% if module_1 != 'none' %}
+    {% if module_1 == 'module-technical-specifications' %}
+      {% section 'module-technical-specifications' %}
+      {% assign used_technical_specifications = true %}
+    {% endif %}
+
+    {% if module_1 == 'module-product-focus' %}
+      {% section 'module-product-focus' %}
+      {% assign used_product_focus = true %}
+    {% endif %}
+  {% endif %}
+
+  {% if module_2 != 'none' %}
+    {% if module_2 == 'module-technical-specifications' and used_technical_specifications == false %}
+      {% section 'module-technical-specifications' %}
+    {% endif %}
+
+    {% if module_2 == 'module-product-focus' and used_product_focus == false %}
+      {% section 'module-product-focus' %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{% section 'module-related-products' %}{%include 'preorder-me-widget'%}
