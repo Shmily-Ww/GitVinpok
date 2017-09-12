@@ -17,16 +17,35 @@
       <div class="module home-left-right-features">
         <div class="module-body">
 
-          <div class="home-left-right-feature clearfix">
-            <div class="home-left-right-section home-left-right-media custom-home-media">
+          <div class="home-left-right-feature clearfix media-aligned-{{ direction }}">
+            <div class="home-left-right-section home-left-right-text {{ alignment }}">
+              {% if block.settings.title != blank %}
+                <h3 class="module-title home-left-right-titles">
+                  {{ block.settings.title | escape }}
+                </h3>
+              {% endif %}
+
+              {% if block.settings.text != blank %}
+                <div class="module-content home-left-right-content">
+                  {{ block.settings.text }}
+                </div>
+              {% endif %}
+
+              {% if has_button %}
+                <div class="module-cta home-left-right-cta">
+                  <a class="button" href="{{ block.settings.button_link }}">
+                    {{ block.settings.button_text | escape }}
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+            <div class="home-left-right-section home-left-right-media">
               {% if block.type == 'image' %}
                 {% if feature_image != blank %}
-                  <a class="home-img-redirect" href="{{ block.settings.button_link }}">
                   <img
                     class="home-left-right-image"
-                    src="{{ feature_image | img_url: '1920x992'}}"
+                    src="{{ feature_image | img_url: '1020x700'}}"
                     alt="{{ feature_image.alt | escape }}">
-                </a>
                 {% else %}
                   {{ 'image' | placeholder_svg_tag: 'placeholder-svg home-left-right-image' }}
                 {% endif %}
@@ -85,41 +104,6 @@
       </div>
     </div>
   {% endfor %}
-    
-    <div class="module-wrapper style-default border">
-      <div class="module home-left-right-features">
-        <div class="module-body">
-          <div class="home-left-right-feature clearfix">
-            <div class="home-left-right-section home-left-right-media custom-home-media">
-                  <a class="home-img-redirect" href="//www.vinpok.com/products/vinpok-mix-3-in-1-charging-cable">
-                  <img
-                    class="home-left-right-image"
-                    src="//cdn.shopify.com/s/files/1/2005/4429/files/MIX-Lightning_Micro-USB_USB-C_1920x992.png?16387749002728078638"
-                    alt="USB Type C / Lightning / Micro 3 in 1 Charging Cable Vinpok Mix">
-                </a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  
-     <div class="module-wrapper style-default border">
-      <div class="module home-left-right-features">
-        <div class="module-body">
-          <div class="home-left-right-feature clearfix">
-            <div class="home-left-right-section home-left-right-media custom-home-media">
-                  <a class="home-img-redirect" href="//www.vinpok.com/products/vinpok-beam-l">
-                  <img class="home-left-right-image"
-                    src="//cdn.shopify.com/s/files/1/2005/4429/files/beam-l-support_lightning_earpods_as_well_as_charging.png?18399996635962962867"
-                    alt="support lightning earpods as well as charging">
-                </a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div> 
 </div>
 {% schema %}
 {

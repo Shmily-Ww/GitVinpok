@@ -11,7 +11,7 @@
 
 <div id="awarp-product-related" data-id="{{ product.id }}" data-collection_id="{{ collection.id }}" data-collection_handle="{{ collection.handle }}"></div>
 
-{% section 'modal-crat-guid' %}
+
 <div class="module-body product-specification-body">
 <div id="kudobuzz_product_reviews_widget" data-product-id="{{ product.id }}"data-uid="54b4x2w22343o2c4t2f4o2233364434334z2q244z2"data-domain="{{ shop.permanent_domain | escape }}"></div>
 {% if product.handle == settings.featured-product-main %}
@@ -42,4 +42,5 @@
     {% endif %}
   {% endif %}
 {% endif %}
+
 {% section 'module-related-products' %}{%include 'preorder-me-widget'%}

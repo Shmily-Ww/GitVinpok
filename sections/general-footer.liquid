@@ -87,83 +87,33 @@
                   {{ block.settings.text }}
                 </div>
               {% endif %}
-                <div class="module-wrapper custom-letter-footer style-{{ section.settings.style }}">
-    <div class="module mailing-list-signup">
-      <div class="mailing-list-signup-container">
-
-        <div class="module-header">
-          <h3 class="module-title">{{ 'general.mailing_list.title' | t }}</h3>
-          <p class="module-subtitle">
-            {{ 'general.mailing_list.description' | t }}
-          </p>
-        </div>
-
-        <div class="module-body">
-          <div class="mailing-list-signup-form-container">
-            {% form 'customer', id: 'newsletter-form' %}
-                <input type="hidden" id="contact_tags" name="contact[tags]" value="prospect, newsletter">
-
-                <div class="mailing-list-signup-form-field">
-                  <input
-                    class="mailing-list-signup-form-email icon-arrow-right"
-                    name="contact[email]"
-                    type="email"
-                    placeholder="{{ 'general.general.email_placeholder' | t }}"
-                    aria-label="{{ 'general.general.email_placeholder' | t }}">
-                  <div class="mailing-list-signup-form-field-icon icon icon-mail"></div>
-                </div>
-
-                <div class="mailing-list-signup-form-cta">
-                  <input
-                    class="mailing-list-signup-form-submit"
-                    name="subscribe"
-                    type="submit"
-                    value="{{ 'general.general.subscribe' | t }}"
-                    aria-label="{{ 'general.general.subscribe' | t }}" />
-                  <div class="mailing-list-signup-form-submit-icon icon icon-arrow-right"></div>
-                </div>
-                  {% if form.posted_successfully? %}
-                <p class="module-subtitle">
-                  {{ 'general.mailing_list.success' | t }}
-                </p>
-              {% endif %}
-            {% endform %}
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
             </div>
           {% endif %}
         {% endfor %}
-          <div class="footer-column footer-menu product-details-share">
-<div class="share-buttons no-count clearfix" data-permalink="https://www.vinpok.com/products/vinpok-duo-dual-lightning-charge-audio-cable-for-iphone-7">
-
-    <a class="share-buttons-item share-instagram" target="_blank" rel="nofollow" href="//www.instagram.com/vinpokstore/">
-      <span>Fancy</span>
-    </a>
-    <a class="share-buttons-item share-youtube" target="_blank" rel="nofollow" href="//www.youtube.com/channel/UC-qlokb4Du8aVy3mDaTQaDQ">
-      <span>Pin it</span>
-      <span class="share-count"></span>
-    </a>
-      <a class="share-buttons-item share-twitter" target="_blank" rel="nofollow" href="//twitter.com/Vinpokcom">
-    <span>Tweet</span>
-    <span class="share-count"></span>
-  </a>
-    <a class="share-buttons-item share-facebook" target="_blank" rel="nofollow" href="//www.facebook.com/vinpok/">
-    <span>Share</span>
-    <span class="share-count"></span>
-  </a>
-</div>
-      <p class="footer-copyright">
-        {% capture year %}{{ "now" | date: "%Y" }}{% endcapture %}
-        {{ 'general.general.copyright_text_html' | t: year: year }} Oakland California USA. Powered by <a class="footer-copyright-link" href="//www.vinpok.com">Vinpok</a>.
-      </p>
-        </div>
       </div>
     {% endif %}
 
+    <div role="contentinfo" class="footer-row footer-information">
+      <p class="footer-copyright">
+        {% capture year %}{{ "now" | date: "%Y" }}{% endcapture %}
+        {{ 'general.general.copyright_text_html' | t: year: year }} Oakland California USA. Powered by Vinpok .
+      </p>
+
+      {% if shop.enabled_payment_types.size > 0 and section.settings.payment_icons %}
+        <ul class="payment-icons">
+          {% comment %}
+            - Use the following code to test all payment types, based on the supplied list
+            from Shopify (https://help.shopify.com/themes/customization/store/add-credit-card-icons)
+          {% endcomment %}
+          {% assign payment_types_all = 'amazon_payments|american_express|apple_pay|bitcoin|dankort|diners_club|discover|dogecoin|dwolla|forbrugsforeningen|jcb|litecoin|maestro|master|paypal|visa|cirrus|interac|stripe' %}
+          {% for type in shop.enabled_payment_types %}
+            {% if payment_types_all contains type %}
+              <li class="payment-icon-{{ type | replace: '_','-' }}"></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
   </footer>
 </div>
 

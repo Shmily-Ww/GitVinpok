@@ -21,18 +21,31 @@
         <div class="product-title">
           <h1 itemprop="name">{{ product.title }}</h1>
         </div>
+        <div class="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          <span class="price" itemprop="price">
+            <span class="money">{{ selectedVariant.price | money }}</span>
+            {% unless product.variants.size == 1 and product.compare_at_price_min <= selectedVariant.price %}
+              <span class="product-price-compare {% if product.compare_at_price_min <= selectedVariant.price %}hidden{% endif %}">
+                <span class="original money">
+                  {% if selectedVariant.compare_at_price > selectedVariant.price %}
+                    {{ selectedVariant.compare_at_price | money }}
+                  {% endif %}
+                </span>
+                <span class="saving">
+                  {% if selectedVariant.compare_at_price > selectedVariant.price %}
+                    <span> {{ "products.product.saving" | t }} </span>
+                    <span class="saving-result money">
+                      {{ selectedVariant.compare_at_price | minus: selectedVariant.price | money }}
+                    </span>
+                  {% endif %}
+                </span>
+              </span>
+            {% endunless %}
+          </span>
+        </div>
       </div>
       {% assign featured_image = selectedVariant.featured_image | default: product.featured_image %}
       <div class="product-slideshow clearfix">
-		{% if product.id == 11219683854 %}
-			<div class="product-best-sale"> 
-				<img alt="Best" src="//cdn.shopify.com/s/files/1/2005/4429/files/best-sale.png?4806414388377295405">
-			</div>
-		{% elsif  product.id == 11219985358 %}
-		    <div class="product-best-sale"> 
-				<img alt="Best" src="//cdn.shopify.com/s/files/1/2005/4429/files/best-sale.png?4806414388377295405">
-			</div>
-		{% endif %}
         <div class="product-image-container clearfix">
           <div class="product-big-image" data-no-image-svg="{{ 'no-image.svg' | asset_url }}" data-no-image-png="{{ 'no-image.png' | asset_url }}">
             <span class="product-slideshow-loader"></span>
@@ -113,30 +126,6 @@
           action="/cart/add"
           method="post"
           data-product-form="{{ form_id }}">
-                <div class="product-details mobile">
-        <div class="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-          <span class="price" itemprop="price">
-            <span class="money">{{ selectedVariant.price | money }}</span>
-            {% unless product.variants.size == 1 and product.compare_at_price_min <= selectedVariant.price %}
-              <span class="product-price-compare {% if product.compare_at_price_min <= selectedVariant.price %}hidden{% endif %}">
-                <span class="original money">
-                  {% if selectedVariant.compare_at_price > selectedVariant.price %}
-                    {{ selectedVariant.compare_at_price | money }}
-                  {% endif %}
-                </span>
-                <span class="saving">
-                  {% if selectedVariant.compare_at_price > selectedVariant.price %}
-                    <span> {{ "products.product.saving" | t }} </span>
-                    <span class="saving-result money">
-                      {{ selectedVariant.compare_at_price | minus: selectedVariant.price | money }}
-                    </span>
-                  {% endif %}
-                </span>
-              </span>
-            {% endunless %}
-          </span>
-        </div>
-      </div>
           <div class="clearfix product-form-nav">
             {% if product.variants.size > 1 %}
               <div class="product-options">
@@ -255,29 +244,25 @@
              {{ product.description | split: '<!-- split -->' | first }}
               </div>
             </div>
-            {% if section.settings.enable-share-buttons %}
-			  <div class="module-wrapper product-details-share">
-			    <div class="module module-share">
-                  <div class="product-safe-flag">
-                  	<img src="//cdn.shopify.com/s/files/1/2005/4429/files/mpv_pic_new_270.png" alt="" >
-                  </div>
-                  <div class="product-socuaus-title"><label>Sociais Share</label></div>
-			      <div class="module-body clearfix">
-			        {%
-			          include 'share-buttons',
-			          item: product,
-			          is_product: true
-			        %}
-			      </div>
-			    </div>
-			  </div>
-			{% endif %}
           </div>
         {% endif %}
       </div>
     </div>
   </div>
 </div>
+{% if section.settings.enable-share-buttons %}
+  <div class="module-wrapper">
+    <div class="module module-share">
+      <div class="module-body clearfix">
+        {%
+          include 'share-buttons',
+          item: product,
+          is_product: true
+        %}
+      </div>
+    </div>
+  </div>
+{% endif %}
 
 {%- capture cart_link -%}
   <a href="/cart">{{ 'products.product.cart_link' | t }}</a>

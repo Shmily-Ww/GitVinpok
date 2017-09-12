@@ -1570,18 +1570,10 @@ window.ProductView = (function(superClass) {
         };
       })(this), 500);
     } else {
-     if(typeof $('#card-modal-guide').modal == 'undefined'){
-    	 $.ajax({
-    	     dataType: "script",
-    	     cache: true,
-    	     url: "https://cdn.shopify.com/s/files/1/2005/4429/t/4/assets/m.min.js"
-    	 });
-    	 //$.cachedScript("https://cdn.shopify.com/s/files/1/2005/4429/t/4/assets/m.min.js");
-     }	
       return Shopify.addItemFromForm(this.productForm, (function(_this) {
         return function(cartItem) {
           return setTimeout(function() {
-            var successMessage, $modal;
+            var successMessage;
             Shopify.getCart(function(cart) {
               return $(".cart-link .cart-count").text(cart.item_count);
             });
@@ -1593,22 +1585,7 @@ window.ProductView = (function(superClass) {
             if (!Modernizr.cssanimations) {
               _this.$addToCartButton.val(Theme.addToCartText);
             }
-            $modal = $('#card-modal-guide');
-            $modal.find('.card-guide-message').find('p').html("<em>" + cartItem.title + "</em> has been successfully added to your cart.");
-            if(typeof $('#card-modal-guide').modal == 'undefined'){
-           	 $.ajax({
-        	     dataType: "script",
-        	     cache: true,
-        	     url: "https://cdn.shopify.com/s/files/1/2005/4429/t/4/assets/m.min.js"
-        	 }).done(function(script, textStatus) {
-           		$modal.modal('show'); 
-           	 });
-            }	else {
-            	$modal.modal('show'); 
-            }
-            
-			return _this.processing = false
-            
+            return _this.processing = false;
           }, 1000);
         };
       })(this));
@@ -3745,11 +3722,12 @@ window.ThemeView = (function(superClass) {
 
 })(Backbone.View);
 
+
 $(function() {
  		  
 		  $('#product-vedio').find('a.video-wrapper-button').on('click', function(event){
 			  new VideoView().activateVideo(event); 
 		  });
   return window.theme = new ThemeView().render();
+  
 });
-

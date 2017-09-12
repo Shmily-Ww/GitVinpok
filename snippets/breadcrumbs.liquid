@@ -3,7 +3,7 @@
     <a class="module-breadcrumbs-link" href="/">{{ 'general.breadcrumbs.home' | t }}</a> <span class="module-breadcrumbs-divider">/</span>
     {% if template contains "product" %}
       {% if product.collections.size > 0 %}
-        <a class="module-breadcrumbs-link"  href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
+        <a class="module-breadcrumbs-link"  href="/collections">{{ 'general.breadcrumbs.collections' | t }}</a> <span class="module-breadcrumbs-divider">/</span> <a class="module-breadcrumbs-link"  href="{{ product.collections.first.url }}">{{ product.collections.first.title }}</a>
       {% else %}
         <a class="module-breadcrumbs-link" href="/collections/all">{{ 'general.breadcrumbs.products' | t }}</a>
       {% endif %}
@@ -11,11 +11,11 @@
     {% elsif template contains "list-collections" %}
       <span>{{ 'collections.listing.header' | t }}</span>
     {% elsif template contains "collection" and current_tags %}
-        <a class="module-breadcrumbs-link"  href="/collections/{{ collection.handle }}">{{ collection.title }}</a> <span class="module-breadcrumbs-divider">/</span> <span>{{ current_tags.first }}</span>
+        <a class="module-breadcrumbs-link" href="/collections">{{ 'general.breadcrumbs.collections' | t }}</a> <span class="module-breadcrumbs-divider">/</span> <a class="module-breadcrumbs-link"  href="/collections/{{ collection.handle }}">{{ collection.title }}</a> <span class="module-breadcrumbs-divider">/</span> <span>{{ current_tags.first }}</span>
     {% elsif template contains "collection" and collection.handle == 'all' %}
       <span>{{ 'general.breadcrumbs.all_products' | t }}</span>
     {% elsif template contains "collection" %}
-       <span>{{ collection.title }}</span>
+      <a class="module-breadcrumbs-link" href="/collections">{{ 'general.breadcrumbs.collections' | t }}</a> <span class="module-breadcrumbs-divider">/</span> <span>{{ collection.title }}</span>
     {% elsif template contains "blog" and current_tags.size > 0 %}
       <a class="module-breadcrumbs-link" href="{{ blog.url }}">{{ blog.title }}</a> <span class="module-breadcrumbs-divider">/</span> <span>{{ 'general.breadcrumbs.tagged' | t }}: {% for tag in current_tags %}{{ tag }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span>
     {% elsif template contains "blog" %}
